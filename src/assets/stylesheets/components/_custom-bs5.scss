@@ -1,0 +1,53 @@
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+//----------------Form
+//Input 、Button
+input{
+  // border:1px solid transparent;
+  &:focus{
+      outline: none;
+  }
+}
+.navbar-dark .navbar-toggler {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  // color: rgba(255, 255, 255, 0.55);
+  // border-color: rgba(255, 255, 255, 0.1);
+}
+
+button{
+  border: 1px solid transparent;
+  &:focus{
+      outline: none;
+  }
+}
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.1rem;
+}
+//a
+a{
+  display: inline-block;
+  text-decoration: none;
+  &:hover{
+      text-decoration: none;
+  }
+}
+ol, ul {
+  list-style: none;
+  padding: 0;
+}
+
+
+// _type.scss
+.h7 {
+  font-size: $h7-font-size;
+}
+
+// Shadow
+.shadow-xl {
+  // box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+  box-shadow: 40px 64px 80px -16px rgba(0,0,0,.4);
+}

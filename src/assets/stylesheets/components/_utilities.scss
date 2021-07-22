@@ -1,0 +1,201 @@
+
+.decimal-ListStyle{
+  list-style-type:decimal;
+  list-style-position:inside
+}
+
+.letter-spacing-md{
+  letter-spacing:2px;
+}
+
+//文字水平垂直置中
+.text-hv-center {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  white-space: nowrap;
+}
+
+// ------- Background
+.bg{
+  &-cover{
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  &-position-center{
+    background-position: center center;
+  }
+  &-position-tc{
+    background-position: top center;
+  }
+  &-transparent-{
+    &white90{
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  }
+  &-mask{
+    &-30{
+      filter: brightness(30%);
+    }
+    &-40{
+      filter: brightness(40%);
+    }
+    &-50{
+      filter: brightness(50%);
+    }
+    &-60{
+      filter: brightness(60%);
+    }
+    &-70{
+      filter: brightness(70%);
+    }
+  }
+}
+// ------- images 
+.img{
+  &-cover{
+    object-fit: cover;
+  }
+  &-position-center{
+    object-position: center center;
+  }
+  &-position-tc{
+    object-position: top center;
+  }
+  &-position-bc{
+    object-position: bottom center;
+  }
+}
+
+
+// ------- hover
+.hover{
+  &-goodsTransform{
+    &:hover{
+      transition: all .3s ease-in-out;
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+  &-text-white{
+    &:hover{
+      color: #fff;
+    }
+  }
+  &-text-warning{
+    &:hover{
+      color: $warning;
+    }
+  }
+  &-bgMask-80{
+    &:hover{
+        filter: brightness(80%);
+    }
+  }
+
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+// 分隔線與產品標
+.divider-separator{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width:300px;
+  color:$warning;
+}
+
+.divider-separator:before{
+  position: absolute;
+  display: block;
+  content: "";
+  height: 1px;
+  background: $warning;
+  padding-right: 38%;
+}
+.divider-separator-text{
+  margin-left: 42%;
+}
+
+// -----Badge
+.badgeSale {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.35em 0.65em;
+  font-size: 0.875em;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+  width: 45px;
+  height: 45px;
+}
+
+// 頁面頂部 banner
+.pageBanner{
+  height: 264px;
+  &-text{
+    font-family: 'Playfair Display';
+  }
+}
+@media (min-width: 992px) {
+  .pageBanner {
+    height: 350px;
+  }
+}
+
+// 圓角
+.rounded-end-0{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.rounded-start-0{
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+// Position : relative | absolute
+@include media-breakpoint-up(md) {
+  .position-md{
+    &-relative{
+      position: relative;
+    }
+    &-absolute{
+      position: absolute;
+    }
+  }
+}
+@include media-breakpoint-up(lg) {
+  .position-lg{
+    &-relative{
+      position: relative;
+    }
+    &-absolute{
+      position: absolute;
+    }
+  }
+}
+@include media-breakpoint-up(xl) {
+  .position-xl{
+    &-relative{
+      position: relative;
+    }
+    &-absolute{
+      position: absolute;
+    }
+  }
+}
+
+// 視窗高度滿版 page 頁
+.window-vh100{
+  min-height: calc(100vh - 320px);
+}
+@media (min-width: 992px) {
+  .window-vh100{
+    min-height: calc(100vh - 406px);
+  }
+}
