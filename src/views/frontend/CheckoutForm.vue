@@ -188,11 +188,18 @@ export default {
             this.$refs.form.resetForm();
             this.getCart();
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: `<p class="h4">${response.data.message}</p>`,
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {
           console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err}</p>`,
+            icon: 'error',
+          });
         });
     },
   },

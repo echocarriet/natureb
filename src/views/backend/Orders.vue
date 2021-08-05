@@ -103,13 +103,12 @@ export default {
         .get(api)
         .then((response) => {
           if (response.data.success) {
-            console.log(response);
             this.orders = response.data.orders;
             this.pagination = response.data.pagination;
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$httpMessageState(err);
         });
     },
     updatePaid(item) {
@@ -124,11 +123,10 @@ export default {
           const orderComponent = this.$refs.OrderModal;
           orderComponent.hideModal();
           this.$httpMessageState(response, '更新付款狀態');
-          console.log(response.data.message);
           this.getOrders(this.currentPage);
         })
         .catch((err) => {
-          console.log(err);
+          this.$httpMessageState(err);
         });
     },
     openModal(item) {
@@ -142,14 +140,13 @@ export default {
       this.$http
         .delete(api)
         .then((response) => {
-          console.log(response.data.message);
           this.$httpMessageState(response, '刪除訂單');
           const delComponent = this.$refs.DelModal;
           delComponent.hideModal();
           this.getOrders(this.currentPage);
         })
         .catch((err) => {
-          console.log(err);
+          this.$httpMessageState(err);
         });
     },
     openDelOrderModal(item) {

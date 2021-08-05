@@ -25,7 +25,7 @@
       <tbody>
         <tr v-for="item in products" :key="item.id">
           <td>
-            <img :src="item.imageUrl" style="width:100px;">
+            <img :src="item.imageUrl" style="width:100px;" />
           </td>
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>

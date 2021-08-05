@@ -168,7 +168,6 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http.get(api).then((response) => {
         if (response.data.success) {
-          console.log(response.data.data);
           this.isLoading = false;
           this.cart = response.data.data;
         }
@@ -192,11 +191,17 @@ export default {
             this.isLoading = false;
             this.getCart();
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: `<p class="h4"> ${response.data.message}</p>`,
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4"> ${err}</p>`,
+            icon: 'error',
+          });
         });
     },
     removeCartItem(id) {
@@ -207,7 +212,6 @@ export default {
         .delete(url)
         .then((response) => {
           if (response.data.success) {
-            console.log(response);
             this.$swal({
               title: `<p class="h4">${response.data.message}</p>`,
               icon: 'success',
@@ -218,14 +222,16 @@ export default {
           } else {
             this.$swal({
               title: `<p class="h4">${response.data.message}</p>`,
-              icon: 'success',
+              icon: 'error',
             });
             this.isLoading = false;
-            console.log(response.data.message);
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4"> ${err}</p>`,
+            icon: 'error',
+          });
         });
     },
     addCouponCode() {

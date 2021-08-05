@@ -353,7 +353,6 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
       this.isLoading = true;
       this.$http.get(api).then((response) => {
-        console.log(response);
         if (response.data.success) {
           this.products = response.data.products;
           this.getCategories();
@@ -383,7 +382,7 @@ export default {
         .then((response) => {
           if (response.data.success) {
             // 按加入購物車按鈕，查看可得 response的訊息顯示已加入購物車，並且 qty會增加。
-            console.log(response);
+
             // 當有品項加入購物車，就會重新取得購物車一次 (navbar 的cartIcon)
             this.emitter.emit('update-cart');
             this.$swal({
@@ -391,12 +390,17 @@ export default {
               icon: 'success',
             });
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: `<p class="h4"> ${response.data.data.product.title}</p>`,
+              icon: 'error',
+            });
           }
         })
-        .catch((err) => {
-          this.$swal({ title: '<p class="h4">發生錯誤，請嘗試重新整理此頁面</p>', icon: 'error' });
-          console.log(err);
+        .catch(() => {
+          this.$swal({
+            title: '<p class="h4"> 發生錯誤，請嘗試重新整理此頁面</p>',
+            icon: 'error',
+          });
         });
     },
     // 點選商品分類跳到對應的商品頁

@@ -124,11 +124,17 @@ export default {
             this.order = response.data.order;
             this.isLoading = false;
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: `<p class="h4"> ${response.data.data.product.title}</p>`,
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err} 發生錯誤，請重新整理頁面</p>`,
+            icon: 'error',
+          });
         });
     },
   },

@@ -86,11 +86,7 @@
       <button class="btn btn-warning btn-lg" v-if="!order.is_paid" @click="payOrder">
         確認結帳
       </button>
-      <button
-        class="btn btn-primary text-white btn-lg"
-        v-else
-        @click="$router.push('/products')"
-      >
+      <button class="btn btn-primary text-white btn-lg" v-else @click="$router.push('/products')">
         繼續購物
       </button>
     </div>
@@ -126,11 +122,17 @@ export default {
             this.order = response.data.order;
             this.isLoading = false;
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: `<p class="h4">${response.data.message}</p>`,
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err}</p>`,
+            icon: 'error',
+          });
         });
     },
     // 結帳付款
@@ -156,7 +158,10 @@ export default {
           this.isLoading = false;
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err}</p>`,
+            icon: 'error',
+          });
         });
     },
   },

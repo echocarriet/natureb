@@ -54,11 +54,10 @@ export default {
             this.$router.push('/admin');
           } else {
             this.$httpMessageState(response, '登入結果');
-            console.log(response.message);
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$httpMessageState(err);
         });
     },
   },

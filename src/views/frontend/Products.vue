@@ -154,7 +154,6 @@ export default {
       this.$http.get(api).then((response) => {
         if (response.data.success) {
           this.isLoading = false;
-          console.log(response);
           // 執行程式時要注意順序，先取得所有商品資料 → 取得商品的分類們
           this.products = response.data.products;
           this.getCategories();
@@ -163,7 +162,10 @@ export default {
             this.selectCategory = categoryName;
           }
         } else {
-          console.log(response.data.message);
+          this.$swal({
+            title: `<p class="h4">${response.data.message}</p>`,
+            icon: 'error',
+          });
         }
       });
     },
@@ -196,7 +198,6 @@ export default {
           if (response.data.success) {
             this.isLoading = false;
             // 按加入購物車按鈕，查看可得 response的訊息顯示已加入購物車，並且 qty會增加。
-            console.log(response);
             // 當有品項加入購物車，就會重新取得購物車一次 (navbar 的cartIcon)
             this.emitter.emit('update-cart');
             this.$swal({
@@ -204,12 +205,17 @@ export default {
               icon: 'success',
             });
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: '<p class="h4">發生錯誤，請重新把商品加入購物車</p>',
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {
-          this.$swal({ title: '<p class="h4">發生錯誤，請嘗試重新整理此頁面</p>', icon: 'error' });
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err} 發生錯誤，請嘗試重新整理此頁面</p>`,
+            icon: 'error',
+          });
         });
     },
     toggleDropdown() {

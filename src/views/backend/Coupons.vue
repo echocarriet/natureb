@@ -92,7 +92,7 @@ export default {
           this.coupons = response.data.coupons;
         })
         .catch((err) => {
-          console.log(err);
+          this.$httpMessageState(err);
         });
     },
     openCouponModal(isNew, item) {
@@ -131,7 +131,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$httpMessageState(err);
         });
     },
     openDelCouponModal(item) {

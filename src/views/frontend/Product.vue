@@ -230,14 +230,16 @@ export default {
         .get(api)
         .then((response) => {
           if (response.data.success) {
-            console.log(response);
             this.isLoading = false;
             this.product = response.data.product;
             this.img = this.product.imageUrl;
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err} 發生錯誤，請重新整理頁面</p>`,
+            icon: 'error',
+          });
         });
     },
     addToCart(id, qty) {
@@ -254,7 +256,6 @@ export default {
           if (response.data.success) {
             this.isLoading = false;
             // 按加入購物車按鈕，查看可得 response的訊息顯示已加入購物車，並且 qty會增加。
-            console.log(response);
             // 當有品項加入購物車，就會重新取得購物車一次 (navbar 的cartIcon)
             this.emitter.emit('update-cart');
             this.$swal({
@@ -262,11 +263,17 @@ export default {
               icon: 'success',
             });
           } else {
-            console.log(response.data.message);
+            this.$swal({
+              title: `<p class="h4">${response.data.message}</p>`,
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.$swal({
+            title: `<p class="h4">${err} 發生錯誤，請重新整理頁面</p>`,
+            icon: 'error',
+          });
         });
     },
     // bsTab
