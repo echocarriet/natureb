@@ -3,7 +3,7 @@
   <!-- Banner -->
   <header class="bg-cover bg-position-center indexBanner" :style="indexBg.banner">
     <div class="container d-flex align-items-center justify-content-center h-100">
-      <div class="indexBanner-text text-warning text-center">
+      <div class="indexBanner-text text-yellow-700 text-center">
         <h2 class="h2">
           NATUREB x ORGANIC
         </h2>
@@ -192,29 +192,7 @@
       </div>
       <!-- Swiperjs 輪播 -->
       <div class="container">
-        <swiper
-          :autoplay="autoplay"
-          :loop="true"
-          :breakpoints="{
-            '320': {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
-            '576': {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            '768': {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-            '992': {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-          }"
-          class="mySwiper my-5"
-        >
+        <swiper :autoplay="autoplay" :loop="true" :breakpoints="breakpoints" class="mySwiper my-5">
           <template v-for="item in products" :key="item">
             <swiper-slide
               class="d-flex justify-content-center align-items-center"
@@ -340,6 +318,25 @@ export default {
       autoplay: {
         delay: 3000,
         disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        576: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        992: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
       },
     };
   },

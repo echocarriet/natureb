@@ -42,7 +42,6 @@
               <li
                 @click.prevent="selectCategory = ''"
                 :class="{ active: selectCategory === '' }"
-                ref="bsDropdown"
               >
                 <a class="dropdown-item" href="#">所有產品</a>
               </li>
@@ -108,7 +107,7 @@
                     </div>
                   </div>
                 </router-link>
-                <div class="card-footer border-0 bg-transparent">
+                <div class="card-footer border-0 bg-transparent pt-0 pb-3">
                   <button
                     type="button"
                     class="btn btn-outline-warning w-100 hover-text-white"
@@ -130,7 +129,7 @@
 <script>
 import Navbar from '@/components/frontend/Navbar.vue';
 import Footer from '@/components/frontend/Footer.vue';
-import Dropdown from 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/dropdown';
 
 export default {
   data() {
@@ -218,12 +217,6 @@ export default {
           });
         });
     },
-    toggleDropdown() {
-      this.dropdown.toggle();
-    },
-    hideDropdown() {
-      this.dropdown.hide();
-    },
   },
   computed: {
     filterProducts() {
@@ -233,9 +226,6 @@ export default {
   },
   mounted() {
     this.getProducts();
-    this.dropdown = new Dropdown(this.$refs.bsDropdown, {
-      toggle: false,
-    });
   },
 };
 </script>

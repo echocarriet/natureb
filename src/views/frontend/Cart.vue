@@ -106,7 +106,7 @@
             <input
               type="text"
               class="form-control"
-              v-model="coupon_code"
+              v-model.trim="coupon_code"
               placeholder="請輸入優惠碼"
             />
             <button class="btn btn-secondary text-white" type="button" @click="addCouponCode">

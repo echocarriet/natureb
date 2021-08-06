@@ -19,13 +19,14 @@ $gray-900: #212529 !default;
 $black: #000 !default;
 
 $brown-400: #beb8b6 !default;
-$brown-600: #938985 !default;
+$brown-600: #7a726e !default;
 $brown-900: #52433e !default; //主咖
 
 $yellow-100: #fffbfa !default; //主背景
 $yellow-400: #dba87c !default;
 $yellow-600: #ffbf52 !default;
-$yellow-800: #edb932 !default; //主黃
+$yellow-700: #edb932 !default;
+$yellow-800: #dca000 !default; //主黃 
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -52,6 +53,7 @@ $yellows: (
   '100': $yellow-100,
   '400': $yellow-400,
   '600': $yellow-600,
+  '700': $yellow-700,
   '800': $yellow-800,
 ) !default;
 
@@ -65,6 +67,7 @@ $purple: #6f42c1 !default;
 $pink: #d63384 !default;
 $red: #E7747D !default; //#dc3545 !default;
 $orange: #fd7e14 !default;
+$yellow-700: $yellow-700 !default;
 $yellow: $yellow-800 !default; //#ffc107 !default;
 $green: #198754 !default;
 $teal: #20c997 !default;
@@ -79,6 +82,7 @@ $colors: (
   'pink': $pink,
   'red': $red,
   'orange': $orange,
+  'yellow-700': $yellow-700,
   'yellow-light': $yellow-100,
   //黃-背景色
     'yellow': $yellow,
@@ -120,6 +124,7 @@ $theme-colors: (
   'light': $light,
   'dark': $dark,
   'brown-400': $brown-400,
+  'yellow-700': $yellow-700,
 ) !default;
 // scss-docs-end theme-colors-map
 

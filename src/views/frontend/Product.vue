@@ -166,7 +166,7 @@
         </button>
       </li>
     </ul>
-    <div class="tab-content p-4" ref="bsTab">
+    <div class="tab-content p-4">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <ul>
           <li>
@@ -198,7 +198,7 @@
   <Footer />
 </template>
 <script>
-import Tab from 'bootstrap/js/dist/tab';
+import 'bootstrap/js/dist/tab';
 import Navbar from '@/components/frontend/Navbar.vue';
 import Footer from '@/components/frontend/Footer.vue';
 
@@ -276,25 +276,9 @@ export default {
           });
         });
     },
-    // bsTab
-    toggleTab() {
-      this.tab.toggle();
-    },
-    openTab() {
-      this.tab.show();
-    },
-    hideTab() {
-      this.tab.hide();
-    },
-  },
-  watch: {
-    // product() {
-    //   this.img = this.product.imageUrl;
-    // },
   },
   mounted() {
     this.getProduct();
-    this.tab = Tab.getInstance(this.$refs.bsTab);
   },
 };
 </script>
