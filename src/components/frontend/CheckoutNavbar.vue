@@ -93,12 +93,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-#navbar-top {
-  transition: 0.6s background-color;
-}
-.logoText {
-  font-family: 'Playfair Display';
-  font-size: 40px;
-}
-</style>

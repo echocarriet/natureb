@@ -171,9 +171,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.logoText {
-  font-family: 'Playfair Display';
-  font-size: 40px;
-}
-</style>

@@ -1,0 +1,98 @@
+//----- Index
+.masonryCard-imgStretch {
+  height: 300px;
+}
+.masonryCard-img {
+  height: 300px;
+}
+.masonryCard-text {
+  width: 100%;
+  letter-spacing: 2px;
+  white-space: pre-wrap;
+  text-align: center;
+  padding: 0 5px;
+  line-height: 2rem;
+}
+
+.indexBanner {
+  height: 350px;
+}
+.bigSaleBanner {
+  height: 380px;
+  &-body {
+    width: 100%;
+  }
+}
+.indexBanner-text {
+  font-family: 'Playfair Display';
+}
+//----- ContactUs
+.contactForm {
+  height: 380px;
+  &-body {
+    width: 100%;
+  }
+}
+//----- Cart
+.cartQty {
+  min-width: 30%;
+}
+//----- CheckoutForm、Checkout、PaymentSuccess、CheckoutNavbar (components)
+.logoText {
+  font-family: 'Playfair Display';
+  font-size: 40px;
+}
+//----- CheckoutNavbar (components)
+#navbar-top {
+  transition: 0.6s background-color;
+}
+
+@include media-breakpoint-up(md) {
+  // -- Index
+  .bigSaleBanner {
+    &-body {
+      width: 100%;
+      right: -5%;
+    }
+  }
+  // -- ContactUs
+  .special-px {
+    padding-left: 70.08px;
+    padding-right: 70.08px;
+  }
+}
+@include media-breakpoint-up(lg) {
+  // -- Index
+  .indexBanner {
+    height: 650px;
+  }
+  .bigSaleBanner {
+    height: 587px;
+    &-body {
+      width: 100%;
+      right: -10%;
+    }
+  }
+  .masonryCard-imgStretch {
+    height: 600px;
+  }
+  // -- ContactUs
+  .contactForm {
+    height: 587px;
+    &-body {
+      left: -10%;
+    }
+  }
+  // --- Cart
+  .cartQty {
+    min-width: 15%;
+  }
+}
+@include media-breakpoint-up(xl) {
+  // -- Index
+  .bigSaleBanner {
+    &-body {
+      width: 80%;
+    }
+  }
+}

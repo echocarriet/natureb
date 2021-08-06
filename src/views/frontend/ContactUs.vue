@@ -235,28 +235,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import '@/assets/stylesheets/all';
-
-@include media-breakpoint-up(md) {
-  .special-px {
-    padding-left: 70.08px;
-    padding-right: 70.08px;
-  }
-}
-
-.contactForm {
-  height: 380px;
-  &-body {
-    width: 100%;
-  }
-}
-@include media-breakpoint-up(lg) {
-  .contactForm {
-    height: 587px;
-    &-body {
-      left: -10%;
-    }
-  }
-}
-</style>

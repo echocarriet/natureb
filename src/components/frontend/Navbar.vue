@@ -126,7 +126,25 @@ export default {
   // 有使用 window 監聽 scroll 事件時，在 unmounted 生命週期時使用 removeEventListener 來移除監聽事件
   unmounted() {
     this.emitter.off('update-cart');
-    window.removeEventListener('scroll');
+    window.removeEventListener('scroll', () => {
+      // 目前滾動位置
+      const windowY = window.scrollY;
+      if (windowY > 80) {
+        this.isActive = true;
+        this.classList = {
+          navbarTop: 'bg-transparent-white90', // 'bg-white',
+          navbarInner: 'navbar-light',
+          navbarShadow: 'shadow-sm',
+        };
+      } else {
+        // 往回滾動時回到原來狀態
+        this.isActive = false;
+        this.classList = {
+          navbarTop: '',
+          navbarInner: 'navbar-dark',
+        };
+      }
+    });
   },
 };
 </script>

@@ -5,8 +5,3 @@
     </div>
   </div>
 </template>
-<style lang="scss">
-.logoText {
-  font-family: 'Playfair Display';
-}
-</style>
