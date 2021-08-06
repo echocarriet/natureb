@@ -87,6 +87,10 @@ export default {
       this.getCart();
     });
   },
+  // 有使用 emitter.on 來接收資料時，記得 unmounted 對 emitter 事件使用 emitter.off() 來關閉 emitter 事件的監聽
+  unmounted() {
+    this.emitter.off('update-cart');
+  },
 };
 </script>
 <style lang="scss">
