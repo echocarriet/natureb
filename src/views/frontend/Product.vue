@@ -49,26 +49,6 @@
               alt="product.title"
               style="width:30%;"
             />
-            <!-- <div class="row">
-              <div class="col-4">
-                <img
-                  class="w-100 img-cover bg-white cursor-pointer shadow-sm"
-                  @click="img = product.imageUrl"
-                  :src="product.imageUrl"
-                  alt="product.title"
-                />
-              </div>
-              <div class="col-4">
-                <img
-                  class="w-100 img-cover cursor-pointer shadow-sm"
-                  v-for="item in product.imagesUrl"
-                  :key="item"
-                  @click="img = item"
-                  :src="item"
-                  alt="product.title"
-                />
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -134,7 +114,6 @@
         </div>
       </div>
     </div>
-
     <!-- Nav 商品資訊 -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -166,7 +145,7 @@
         </button>
       </li>
     </ul>
-    <div class="tab-content p-4">
+    <div class="tab-content py-4">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <ul>
           <li>
@@ -194,6 +173,106 @@
       </div>
     </div>
     <!-- 相似產品 -->
+    <div class="py-8 py-lg-10">
+      <h3 class="h3 fw-bold text-center mb-8 mb-lg-9">你可能會有興趣的產品</h3>
+      <!-- Swiperjs 輪播 -->
+      <!-- 相似產品數量4個以上 -->
+      <swiper
+        :autoplay="autoplay"
+        :loop="true"
+        :breakpoints="breakpoints"
+        class="mySwiper my-5"
+        v-if="filterProducts.length > 3"
+      >
+        <template v-for="item in filterProducts" :key="item">
+          <swiper-slide class="d-flex justify-content-center align-items-center">
+            <div class="card border-brown-400 hover-goodsTransform">
+              <router-link :to="`/product/${item.id}`">
+                <img :src="`${item.imagesUrl[0]}`" class="card-img-top" />
+                <span
+                  class="badgeSale bg-warning rounded-circle p-2 position-absolute"
+                  style="top:5px; right:10px;"
+                  v-if="item.price < item.origin_price"
+                  >Sale</span
+                >
+                <div class="card-body">
+                  <span class="h6">{{ item.category }}</span>
+                  <h4 class="card-title">{{ item.title }}</h4>
+                  <div class="d-flex align-items-center fw-bold">
+                    <h5
+                      class="mb-0 me-3 text-danger fw-bold"
+                      v-if="item.price !== item.origin_price"
+                    >
+                      NT ${{ $filters.currency(item.price) }}
+                    </h5>
+                    <span
+                      :class="[
+                        item.price !== item.origin_price
+                          ? ['text-brown-400', 'text-decoration-line-through']
+                          : 'text-primary',
+                      ]"
+                      >NT ${{ $filters.currency(item.origin_price) }}</span
+                    >
+                  </div>
+                </div>
+              </router-link>
+              <div class="card-footer border-0 bg-transparent pt-0 pb-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-warning w-100 hover-text-white"
+                  @click.prevent="addToCart(item.id, qty)"
+                >
+                  <i class="bi bi-cart-plus-fill h4"></i>
+                  加入購物車
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+        </template>
+      </swiper>
+      <!-- 相似產品數量不足4個 -->
+      <ul class="row" v-else>
+        <template v-for="item in filterProducts" :key="item">
+          <li class="col-sm-6 col-lg-3 mb-4">
+            <div class="card border-brown-400 hover-goodsTransform">
+              <router-link :to="`/product/${item.id}`">
+                <img :src="`${item.imagesUrl[0]}`" class="card-img-top" />
+                <div class="card-body">
+                  <span class="h6">{{ item.category }}</span>
+                  <h4 class="card-title">{{ item.title }}</h4>
+                  <div class="d-flex align-items-center fw-bold">
+                    <h5
+                      class="mb-0 me-3 text-danger fw-bold"
+                      v-if="item.price !== item.origin_price"
+                    >
+                      NT ${{ $filters.currency(item.price) }}
+                    </h5>
+                    <span
+                      :class="[
+                        item.price !== item.origin_price
+                          ? ['text-brown-400', 'text-decoration-line-through']
+                          : 'text-primary',
+                      ]"
+                      >NT ${{ $filters.currency(item.origin_price) }}</span
+                    >
+                  </div>
+                </div>
+              </router-link>
+              <div class="card-footer border-0 bg-transparent pt-0 pb-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-warning w-100 hover-text-white"
+                  @click.prevent="addToCart(item.id)"
+                >
+                  <i class="bi bi-cart-plus-fill h4"></i>
+                  加入購物車
+                </button>
+              </div>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
   </div>
   <Footer />
 </template>
@@ -206,11 +285,37 @@ export default {
   data() {
     return {
       isLoading: false, // 讀取效果
+      products: [],
       product: {},
+      category: '',
       cart: {},
       img: '', // 商品的其他附圖
       tab: '',
       qty: 1,
+      // swiperjs設定
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        576: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        992: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+      },
     };
   },
   inject: ['emitter'],
@@ -232,6 +337,7 @@ export default {
           if (response.data.success) {
             this.isLoading = false;
             this.product = response.data.product;
+            this.category = this.product.category;
             this.img = this.product.imageUrl;
           }
         })
@@ -241,6 +347,20 @@ export default {
             icon: 'error',
           });
         });
+    },
+    getProducts() {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;
+      this.$http.get(api).then((response) => {
+        if (response.data.success) {
+          this.products = response.data.products;
+        } else {
+          this.$swal({
+            title: `<p class="h4">${response.data.message}</p>`,
+            icon: 'error',
+          });
+        }
+      });
     },
     addToCart(id, qty) {
       this.isLoading = true;
@@ -277,8 +397,16 @@ export default {
         });
     },
   },
+  computed: {
+    filterProducts() {
+      return this.products.filter(
+        (item) => this.category === '' || (item.category === this.category && item.id !== this.product.id),
+      );
+    },
+  },
   mounted() {
     this.getProduct();
+    this.getProducts();
   },
 };
 </script>

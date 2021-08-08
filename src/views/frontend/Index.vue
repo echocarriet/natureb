@@ -42,6 +42,12 @@
             <div class="card bg-transparent border-0 ">
               <router-link class="hover-goodsTransform" :to="`/product/${item.id}`">
                 <img :src="item.imageUrl" class="card-img-top" />
+                <span
+                  class="badgeSale bg-warning rounded-circle p-2 position-absolute"
+                  style="top:5px; right:10px;"
+                  v-if="item.price < item.origin_price"
+                  >Sale</span
+                >
                 <div class="card-body">
                   <span class="h6">{{ item.category }}</span>
                   <h4 class="card-title">{{ item.title }}</h4>

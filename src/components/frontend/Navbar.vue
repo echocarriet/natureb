@@ -78,7 +78,6 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http.get(api).then((response) => {
         if (response.data.success) {
-          console.log(response);
           this.cart = response.data.data.carts;
         }
       });

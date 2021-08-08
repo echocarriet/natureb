@@ -39,10 +39,7 @@
               產品系列
             </button>
             <ul class="dropdown-menu w-100">
-              <li
-                @click.prevent="selectCategory = ''"
-                :class="{ active: selectCategory === '' }"
-              >
+              <li @click.prevent="selectCategory = ''" :class="{ active: selectCategory === '' }">
                 <a class="dropdown-item" href="#">所有產品</a>
               </li>
               <li
@@ -86,6 +83,12 @@
               <div class="card border-brown-400 hover-goodsTransform">
                 <router-link :to="`/product/${item.id}`">
                   <img :src="`${item.imagesUrl[0]}`" class="card-img-top" />
+                  <span
+                    class="badgeSale bg-warning rounded-circle p-2 position-absolute"
+                    style="top:5px; right:10px;"
+                    v-if="item.price < item.origin_price"
+                    >Sale</span
+                  >
                   <div class="card-body">
                     <span class="h6">{{ item.category }}</span>
                     <h4 class="card-title">{{ item.title }}</h4>
