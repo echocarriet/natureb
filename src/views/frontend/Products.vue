@@ -83,12 +83,18 @@
               <div class="card border-brown-400 hover-goodsTransform">
                 <router-link :to="`/product/${item.id}`">
                   <img :src="`${item.imagesUrl[0]}`" class="card-img-top" />
-                  <span
-                    class="badgeSale bg-warning rounded-circle p-2 position-absolute"
+                  <button
+                    type="button"
+                    class="btn btn-light rounded-circle favIcon
+                    position-absolute shadow-sm"
                     style="top:5px; right:10px;"
-                    v-if="item.price < item.origin_price"
-                    >Sale</span
+                    @click.prevent="addFavorite(item)"
+                    :class="{
+                      'active border-0 bg-warning text-white': myFavorite.includes(item.id),
+                    }"
                   >
+                    <i class="bi bi-heart"></i>
+                  </button>
                   <div class="card-body">
                     <span class="h6">{{ item.category }}</span>
                     <h4 class="card-title">{{ item.title }}</h4>
@@ -132,6 +138,7 @@
 <script>
 import Navbar from '@/components/frontend/Navbar.vue';
 import Footer from '@/components/frontend/Footer.vue';
+import localStorage from '@/mixins/localStorage';
 import 'bootstrap/js/dist/dropdown';
 
 export default {
@@ -142,9 +149,11 @@ export default {
       products: [],
       categories: [], // 分類項目用
       selectCategory: '', // 點選分類的商品
+      myFavorite: this.getLocalStorage() || [], // 收藏清單(我的最愛)
     };
   },
   inject: ['emitter'],
+  mixins: [localStorage],
   components: {
     Navbar,
     Footer,

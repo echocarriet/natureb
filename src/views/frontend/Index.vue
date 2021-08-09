@@ -69,15 +69,27 @@
                   </div>
                 </div>
               </router-link>
-              <div class="card-footer border-0 bg-transparent">
-                <button
-                  type="button"
-                  class="btn btn-outline-warning w-100 hover-text-white"
-                  @click.prevent="addToCart(item.id)"
-                >
-                  <i class="bi bi-cart-plus-fill h4"></i>
-                  加入購物車
-                </button>
+              <div class="card-footer border-0 bg-transparent row">
+                <div class="col-3">
+                  <button
+                    type="button"
+                    class="btn border-warning favIcon"
+                    @click.prevent="addFavorite(item)"
+                    :class="{ 'active bg-warning text-white': myFavorite.includes(item.id) }"
+                  >
+                    <i class="bi bi-heart"></i>
+                  </button>
+                </div>
+                <div class="col-9">
+                  <button
+                    type="button"
+                    class="btn btn-outline-warning w-100 hover-text-white"
+                    @click.prevent="addToCart(item.id)"
+                  >
+                    <i class="bi bi-cart-plus-fill h4"></i>
+                    加入購物車
+                  </button>
+                </div>
               </div>
             </div>
           </li>
@@ -287,6 +299,7 @@
 <script>
 import Navbar from '@/components/frontend/Navbar.vue';
 import Footer from '@/components/frontend/Footer.vue';
+import localStorage from '@/mixins/localStorage';
 
 export default {
   data() {
@@ -319,6 +332,7 @@ export default {
         imagesUrl: [],
       },
       categories: [], // 分類項目用
+      myFavorite: this.getLocalStorage() || [], // 收藏清單(我的最愛)
       isLoading: false,
       // swiperjs設定
       autoplay: {
@@ -351,6 +365,7 @@ export default {
     Footer,
   },
   inject: ['emitter'],
+  mixins: [localStorage],
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`;

@@ -87,12 +87,25 @@
       color: $warning;
     }
   }
+  &-text-brown-400{
+    &:hover{
+      color: #beb8b6;
+    }
+  }
   &-bgMask-80{
     &:hover{
         filter: brightness(80%);
     }
   }
-
+}
+// Favorite Icon
+.favIcon{
+  color: $warning;  
+  &:hover{
+    color: #fff;
+    background: $warning;
+    border: $warning;
+  }
 }
 
 .cursor-pointer{

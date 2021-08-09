@@ -218,6 +218,8 @@ export default {
             });
             this.status.loadingItem = '';
             this.isLoading = false;
+            // 當有刪除品項，就會重新取得購物車一次 (navbar 的cartIcon)
+            this.emitter.emit('update-cart');
             this.getCart();
           } else {
             this.$swal({
@@ -265,15 +267,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import '@/assets/stylesheets/all';
-
-.cartQty {
-  min-width: 30%;
-}
-@include media-breakpoint-up(lg) {
-  .cartQty {
-    min-width: 15%;
-  }
-}
-</style>

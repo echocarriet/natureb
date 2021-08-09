@@ -9,14 +9,27 @@
     id="navbar-top"
   >
     <div class="container">
-      <h1 class="logoText">
+      <h1 class="logoText mb-0 d-flex align-items-center">
         <router-link class="navbar-brand fw-bold mb-0" style="font-size:27px;" to="/"
           >natureB</router-link
         >
       </h1>
+      <!--斷點 lg 以下 Favrite icon -->
+      <router-link
+        class="position-relative d-flex d-block d-lg-none ms-auto nav-link"
+        to="/favorite"
+      >
+        <i class="bi bi-heart text-warning h3 mb-0"></i>
+        <span
+          class="position-absolute d-flex justify-content-center align-items-center
+      rounded-circle text-white bg-primary h7"
+          style="top:11px; right:12px; width:20px;"
+          >{{ myFavorite.length }}</span
+        >
+      </router-link>
       <!-- 斷點 lg 以下 cart Icon -->
-      <router-link class="position-relative d-flex d-block d-lg-none ms-auto nav-link" to="/cart">
-        <i class="bi bi-cart text-warning h3"></i>
+      <router-link class="position-relative d-flex d-block d-lg-none nav-link" to="/cart">
+        <i class="bi bi-cart text-warning h3 mb-0"></i>
         <span
           class="position-absolute d-flex justify-content-center align-items-center
       rounded-circle text-white bg-primary h7"
@@ -38,6 +51,16 @@
       </button>
       <!-- NavbarModal       -->
       <NavbarModal ref="NavbarModal" />
+      <!--斷點 lg 以上 Favrite icon -->
+      <router-link class="position-relative d-flex d-none d-lg-block nav-link" to="/favorite">
+        <i class="bi bi-heart text-warning h3"></i>
+        <span
+          class="position-absolute d-flex justify-content-center align-items-center
+      rounded-circle text-white bg-primary h7"
+          style="top:11px; right:12px; width:20px;"
+          >{{ myFavorite.length }}</span
+        >
+      </router-link>
       <!--斷點 lg 以上 cart icon -->
       <router-link class="position-relative d-flex d-none d-lg-block nav-link" to="/cart">
         <i class="bi bi-cart text-warning h3"></i>
@@ -53,6 +76,7 @@
 </template>
 <script>
 import NavbarModal from '@/components/frontend/NavbarModal.vue';
+import localStorage from '@/mixins/localStorage';
 
 export default {
   data() {
@@ -66,9 +90,11 @@ export default {
       },
       innerWidth: '',
       cart: {}, // 加入購物車的商品數量
+      myFavorite: this.getLocalStorage() || [], // 收藏清單(我的最愛)
     };
   },
   inject: ['emitter'],
+  mixins: [localStorage],
   components: {
     NavbarModal,
   },
@@ -79,6 +105,8 @@ export default {
       this.$http.get(api).then((response) => {
         if (response.data.success) {
           this.cart = response.data.data.carts;
+        } else {
+          console.log(response.message);
         }
       });
     },
@@ -92,6 +120,28 @@ export default {
           navbarInner: 'navbar-light',
           navbarShadow: 'shadow-sm',
         };
+      }
+    },
+    getFavorite() {
+      this.myFavorite = this.getLocalStorage() || [];
+      this.favoriteProduct = [];
+      if (this.myFavorite.length > 0) {
+        this.myFavorite.forEach((item) => {
+          const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${item}`;
+          this.$http
+            .get(url)
+            .then((response) => {
+              if (response.data.success) {
+                this.favoriteProduct.push(response.data.product);
+              }
+            })
+            .catch(() => {
+              this.$swal({
+                title: '<p class="h4"> 發生錯誤，請重新整理此頁面</p>',
+                icon: 'error',
+              });
+            });
+        });
       }
     },
   },
@@ -116,15 +166,21 @@ export default {
       }
     });
     this.getCart();
+    this.getFavorite();
     // 監聽，當收到事件就重新取得購物車數量一次，再到商品那邊發起事件。
     this.emitter.on('update-cart', () => {
       this.getCart();
+    });
+    this.emitter.on('update-favorite', () => {
+      this.myFavorite = this.getLocalStorage();
+      this.getFavorite();
     });
   },
   // 有使用 emitter.on 來接收資料時，記得 unmounted 對 emitter 事件使用 emitter.off() 來關閉 emitter 事件的監聽
   // 有使用 window 監聽 scroll 事件時，在 unmounted 生命週期時使用 removeEventListener 來移除監聽事件
   unmounted() {
     this.emitter.off('update-cart');
+    this.emitter.off('update-favorite');
     window.removeEventListener('scroll', () => {
       // 目前滾動位置
       const windowY = window.scrollY;
@@ -147,11 +203,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-#navbar-top {
-  transition: 0.6s background-color;
-}
-.logoText {
-  font-family: 'Playfair Display';
-}
-</style>
