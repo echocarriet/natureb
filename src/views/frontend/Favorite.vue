@@ -52,7 +52,7 @@
             <td>
               <button
                 type="button"
-                class="btn btn-warning d-none d-md-block"
+                class="btn btn-warning d-none d-md-block mx-auto"
                 @click.prevent="addToCart(item.product.id)"
               >
                 加入購物車
