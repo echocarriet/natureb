@@ -4,7 +4,7 @@
   <header class="position-relative">
     <img
       class="bg-mask-60 img-cover pageBanner w-100"
-      src="@/assets/stylesheets/images/checkout.jpg"
+      src="@/assets/stylesheets/images/whishlist.jpg"
       alt="收藏banner"
     />
     <h2 class="position-absolute text-hv-center h2 fw-bold text-white-50 pageBanner-text">
