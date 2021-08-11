@@ -184,7 +184,7 @@
         class="mySwiper my-5"
         v-if="filterProducts.length > 3"
       >
-        <template v-for="item in filterProducts" :key="item">
+        <template v-for="item in filterProducts" :key="item.id">
           <swiper-slide class="d-flex justify-content-center align-items-center">
             <div class="card border-brown-400 hover-goodsTransform">
               <router-link :to="`/product/${item.id}`">
@@ -232,7 +232,7 @@
       </swiper>
       <!-- 相似產品數量不足4個 -->
       <ul class="row" v-else>
-        <template v-for="item in filterProducts" :key="item">
+        <template v-for="item in filterProducts" :key="item.id">
           <li class="col-sm-6 col-lg-3 mb-4">
             <div class="card border-brown-400 hover-goodsTransform">
               <router-link :to="`/product/${item.id}`">
@@ -262,7 +262,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-warning w-100 hover-text-white"
-                  @click.prevent="addToCart(item.id)"
+                  @click.prevent="addToCart(item.id,qty)"
                 >
                   <i class="bi bi-cart-plus-fill h4"></i>
                   加入購物車
@@ -396,12 +396,23 @@ export default {
           });
         });
     },
+    goProduct(id) {
+      this.$router.push(`/product/${id}`);
+      this.getProduct();
+    },
   },
   computed: {
     filterProducts() {
       return this.products.filter(
         (item) => this.category === '' || (item.category === this.category && item.id !== this.product.id),
       );
+    },
+  },
+  watch: {
+    $route() {
+      if (this.$route.name === 'product') {
+        this.getProduct();
+      }
     },
   },
   mounted() {

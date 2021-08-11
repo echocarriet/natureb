@@ -211,7 +211,7 @@
       <!-- Swiperjs 輪播 -->
       <div class="container">
         <swiper :autoplay="autoplay" :loop="true" :breakpoints="breakpoints" class="mySwiper my-5">
-          <template v-for="item in products" :key="item">
+          <template v-for="item in products" :key="item.id">
             <swiper-slide
               class="d-flex justify-content-center align-items-center"
               v-if="item.is_seasonSale"
