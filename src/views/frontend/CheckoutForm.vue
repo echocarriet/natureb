@@ -166,6 +166,11 @@ export default {
         if (response.data.success) {
           this.cart = response.data.data;
           this.isLoading = false;
+        } else {
+          this.$swal({
+            title: `<p class="h4"> ${response.data.message}</p>`,
+            icon: 'error',
+          });
         }
       });
     },
@@ -195,7 +200,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
           this.$swal({
             title: `<p class="h4">${err}</p>`,
             icon: 'error',

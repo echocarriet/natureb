@@ -68,13 +68,10 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       this.$http.get(api).then((response) => {
         if (response.data.success) {
-          console.log(response);
           this.cart = response.data.data.carts;
-          console.log(response.data.data.carts);
         }
       });
     },
-    // @click="$refs.NavbarModal.toggleCollapse()"
     mobileBtn() {
       const NavbarComponent = this.$refs.NavbarModal;
       NavbarComponent.toggleCollapse();
@@ -87,7 +84,6 @@ export default {
       this.getCart();
     });
   },
-  // 有使用 emitter.on 來接收資料時，記得 unmounted 對 emitter 事件使用 emitter.off() 來關閉 emitter 事件的監聽
   unmounted() {
     this.emitter.off('update-cart');
   },

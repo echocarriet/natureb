@@ -186,20 +186,12 @@ export default {
         // 把所有商品的分類加到上方建立的 categories 變數上
         categories.add(item.category);
       });
-      // 目前原型是 set ( console.log 可看到是物件形式 ) 要再轉回 Proxy ( 陣列形式 )，可使用 ... ( 類陣列轉純陣列 )。
-      // console.log(categories);
       this.categories = [...categories];
-    },
-    gotopage(item) {
-      // 進入單一頁面可使用 this.$router 查詢方法，可使用 push
-      // console.log(this.$router);
-      this.$router.push(`/product/${item.id}`);
     },
     addToCart(id) {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       const cart = {
-        // product_id: this.tempProduct.id,
         product_id: id,
         qty: 1,
       };

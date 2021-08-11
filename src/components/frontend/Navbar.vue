@@ -106,7 +106,10 @@ export default {
         if (response.data.success) {
           this.cart = response.data.data.carts;
         } else {
-          console.log(response.message);
+          this.$swal({
+            title: `<p class="h4"> ${response.message}</p>`,
+            icon: 'error',
+          });
         }
       });
     },

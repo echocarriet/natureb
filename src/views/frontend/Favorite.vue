@@ -62,7 +62,6 @@
                 class="btn text-warning d-block d-md-none"
                 @click.prevent="addToCart(item.product.id)"
               >
-                <!-- <i class="bi bi-cart-plus h4"></i> -->
                 <i class="bi bi-cart-plus-fill h4"></i>
               </button>
             </td>
@@ -149,7 +148,6 @@ export default {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       const cart = {
-        // product_id: this.tempProduct.id,
         product_id: id,
         qty: 1,
       };
@@ -167,7 +165,7 @@ export default {
             });
           } else {
             this.$swal({
-              title: '<p class="h4">發生錯誤，請重新把商品加入購物車</p>',
+              title: `<p class="h4">${response.data.message} 發生錯誤，請重新把商品加入購物車</p>`,
               icon: 'error',
             });
           }

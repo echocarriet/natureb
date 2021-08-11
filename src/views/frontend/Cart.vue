@@ -170,6 +170,11 @@ export default {
         if (response.data.success) {
           this.isLoading = false;
           this.cart = response.data.data;
+        } else {
+          this.$swal({
+            title: `<p class="h4"> ${response.data.message}</p>`,
+            icon: 'error',
+          });
         }
       });
     },

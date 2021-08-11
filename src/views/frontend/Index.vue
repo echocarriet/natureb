@@ -374,7 +374,6 @@ export default {
         if (response.data.success) {
           this.products = response.data.products;
           this.getCategories();
-          // this.isLoading = false;
         }
       });
     },
@@ -384,14 +383,11 @@ export default {
         // 把所有商品的分類加到上方建立的 categories 變數上
         categories.add(item.category);
       });
-      // 目前原型是 set ( console.log 可看到是物件形式 ) 要再轉回 Proxy ( 陣列形式 )，可使用 ... ( 類陣列轉純陣列 )。
-      // console.log(categories);
       this.categories = [...categories];
     },
     addToCart(id) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
       const cart = {
-        // product_id: this.tempProduct.id,
         product_id: id,
         qty: 1,
       };
@@ -400,7 +396,6 @@ export default {
         .then((response) => {
           if (response.data.success) {
             // 按加入購物車按鈕，查看可得 response的訊息顯示已加入購物車，並且 qty會增加。
-
             // 當有品項加入購物車，就會重新取得購物車一次 (navbar 的cartIcon)
             this.emitter.emit('update-cart');
             this.$swal({
@@ -409,7 +404,7 @@ export default {
             });
           } else {
             this.$swal({
-              title: `<p class="h4"> ${response.data.data.product.title}</p>`,
+              title: `<p class="h4"> ${response.data.message}</p>`,
               icon: 'error',
             });
           }

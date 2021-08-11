@@ -262,7 +262,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-warning w-100 hover-text-white"
-                  @click.prevent="addToCart(item.id,qty)"
+                  @click.prevent="addToCart(item.id, qty)"
                 >
                   <i class="bi bi-cart-plus-fill h4"></i>
                   加入購物車
@@ -326,9 +326,6 @@ export default {
   methods: {
     getProduct() {
       this.isLoading = true;
-      // console.log 內的 this.$route → 路由屬性、this.$router → 路由方法
-      // console.log(this.$route); 得知 this.$route.params.id 可取出單一產品的 id
-      // 下方寫法等同 const id = this.$roude.params.id ;
       const { id } = this.$route.params;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.$http
@@ -339,6 +336,11 @@ export default {
             this.product = response.data.product;
             this.category = this.product.category;
             this.img = this.product.imageUrl;
+          } else {
+            this.$swal({
+              title: `<p class="h4">${response.data.message}</p>`,
+              icon: 'error',
+            });
           }
         })
         .catch((err) => {

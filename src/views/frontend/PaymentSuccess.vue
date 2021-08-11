@@ -125,7 +125,7 @@ export default {
             this.isLoading = false;
           } else {
             this.$swal({
-              title: `<p class="h4"> ${response.data.data.product.title}</p>`,
+              title: '<p class="h4">出現異常，請洽技術人員</p>',
               icon: 'error',
             });
           }
