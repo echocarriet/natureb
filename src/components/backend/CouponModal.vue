@@ -118,10 +118,6 @@ export default {
       // 將時間格式改為 YYYY-MM-DD
       const dateAndTime = new Date(this.tempCoupon.due_date * 1000).toISOString().split('T');
       [this.due_date] = dateAndTime;
-
-      // 優惠券 Modal 的 is_enabled 為必填欄位，若在沒有勾選過 checkbox 的情況下新增優惠券，
-      // 會因為沒有 is_enabled 而造成新增失敗。這部分可以在 coupon() 新增判斷說 isNew 若為 true，
-      // 就執行 this.tempCoupon.is_enabled = 0，讓空 tempCoupon 預先擁有 is_enabled: 0 這個屬性
       if (this.isNew) {
         this.tempCoupon.is_enabled = 0;
       }

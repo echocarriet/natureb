@@ -179,8 +179,6 @@ export default {
       this.getFavorite();
     });
   },
-  // 有使用 emitter.on 來接收資料時，記得 unmounted 對 emitter 事件使用 emitter.off() 來關閉 emitter 事件的監聽
-  // 有使用 window 監聽 scroll 事件時，在 unmounted 生命週期時使用 removeEventListener 來移除監聽事件
   unmounted() {
     this.emitter.off('update-cart');
     this.emitter.off('update-favorite');
@@ -190,7 +188,7 @@ export default {
       if (windowY > 80) {
         this.isActive = true;
         this.classList = {
-          navbarTop: 'bg-transparent-white90', // 'bg-white',
+          navbarTop: 'bg-transparent-white90',
           navbarInner: 'navbar-light',
           navbarShadow: 'shadow-sm',
         };

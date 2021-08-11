@@ -395,7 +395,6 @@ export default {
         .post(api, { data: cart })
         .then((response) => {
           if (response.data.success) {
-            // 按加入購物車按鈕，查看可得 response的訊息顯示已加入購物車，並且 qty會增加。
             // 當有品項加入購物車，就會重新取得購物車一次 (navbar 的cartIcon)
             this.emitter.emit('update-cart');
             this.$swal({
