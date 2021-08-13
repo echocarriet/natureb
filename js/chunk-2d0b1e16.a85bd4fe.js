@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0b1e16"],{2277:function(e,n,o){"use strict";o.r(n);var c=o("7a23");function t(e,n){var o=Object(c["resolveComponent"])("router-view");return Object(c["openBlock"])(),Object(c["createBlock"])(o)}const r={};r.render=t;n["default"]=r}}]);
+//# sourceMappingURL=chunk-2d0b1e16.a85bd4fe.js.map
